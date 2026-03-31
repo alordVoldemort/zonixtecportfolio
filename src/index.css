@@ -1,0 +1,259 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ===== CSS Variables ===== */
+:root {
+  --navy-900: #020B14;
+  --navy-800: #040E1B;
+  --navy-700: #071525;
+  --navy-600: #0D2137;
+  --accent-blue: #4FC3F7;
+  --accent-purple: #7C4DFF;
+  --accent-glow: #64FFDA;
+  --white: #FFFFFF;
+  --glass-bg: rgba(255, 255, 255, 0.05);
+  --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+/* ===== Base Styles ===== */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto; /* Lenis handles smooth scrolling */
+  overflow-x: hidden;
+}
+
+body {
+  font-family: 'Inter', system-ui, sans-serif;
+  background-color: var(--navy-900);
+  color: var(--white);
+  overflow-x: hidden;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  -webkit-text-size-adjust: 100%;
+}
+
+/* ===== Custom Scrollbar ===== */
+::-webkit-scrollbar {
+  width: 6px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--navy-900);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--navy-600);
+  border-radius: 3px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--accent-blue);
+}
+
+/* ===== Selection ===== */
+::selection {
+  background: rgba(79, 195, 247, 0.3);
+  color: var(--white);
+}
+
+/* ===== Glassmorphism Utility ===== */
+.glass {
+  background: var(--glass-bg);
+  backdrop-filter: blur(20px);
+  -webkit-backdrop-filter: blur(20px);
+  border: 1px solid var(--glass-border);
+}
+
+.glass-strong {
+  background: rgba(255, 255, 255, 0.08);
+  backdrop-filter: blur(40px);
+  -webkit-backdrop-filter: blur(40px);
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+/* ===== Glow Effects ===== */
+.glow-blue {
+  box-shadow: 0 0 20px rgba(79, 195, 247, 0.3),
+              0 0 40px rgba(79, 195, 247, 0.1);
+}
+
+.glow-purple {
+  box-shadow: 0 0 20px rgba(124, 77, 255, 0.3),
+              0 0 40px rgba(124, 77, 255, 0.1);
+}
+
+.text-glow {
+  text-shadow: 0 0 40px rgba(79, 195, 247, 0.5);
+}
+
+/* ===== Gradient Text ===== */
+.gradient-text {
+  background: linear-gradient(135deg, var(--accent-blue), var(--accent-purple));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* ===== Horizontal Scroll Container ===== */
+.horizontal-scroll-container {
+  display: flex;
+  flex-wrap: nowrap;
+  gap: 2rem;
+  will-change: transform;
+}
+
+/* ===== Animated Background Grid ===== */
+.bg-grid {
+  background-image:
+    linear-gradient(rgba(79, 195, 247, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(79, 195, 247, 0.03) 1px, transparent 1px);
+  background-size: 60px 60px;
+}
+
+/* ===== Noise Texture Overlay ===== */
+.noise-overlay::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  opacity: 0.03;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)'/%3E%3C/svg%3E");
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* ===== Line animations ===== */
+.line-reveal {
+  overflow: hidden;
+}
+
+.line-reveal span {
+  display: inline-block;
+  transform: translateY(100%);
+}
+
+/* ===== Magnetic button ===== */
+.magnetic-btn {
+  position: relative;
+  transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+/* ===== Section divider ===== */
+.section-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(79, 195, 247, 0.3), transparent);
+}
+
+/* ===== Hide scrollbar (mobile snap scroll) ===== */
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+
+/* ===== Custom cursor ===== */
+.custom-cursor {
+  pointer-events: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 9999;
+  mix-blend-mode: difference;
+}
+
+/* ===== Smooth image loading ===== */
+img {
+  transition: opacity 0.3s ease;
+}
+
+/* ===== Focus styles ===== */
+*:focus-visible {
+  outline: 2px solid var(--accent-blue);
+  outline-offset: 2px;
+}
+
+/* ===== Responsive typography ===== */
+@layer base {
+  h1 {
+    @apply font-display font-bold;
+  }
+  h2 {
+    @apply font-display font-bold;
+  }
+  h3 {
+    @apply font-display font-semibold;
+  }
+}
+
+/* ===== Particle canvas ===== */
+.particles-canvas {
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* ===== Mobile-specific responsive fixes ===== */
+@media (max-width: 640px) {
+  .section-divider {
+    margin-inline: 1rem;
+  }
+
+  /* Reduce overly large blur orbs on small screens to avoid overflow */
+  .w-96 {
+    width: 12rem;
+    height: 12rem;
+  }
+}
+
+/* Ensure all images/videos never overflow */
+img, video, iframe {
+  max-width: 100%;
+}
+
+/* Prevent horizontal overflow from absolute positioned elements */
+section {
+  overflow-x: clip;
+}
+
+/* ===== Form styles ===== */
+input, textarea {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+input:focus, textarea:focus {
+  border-color: var(--accent-blue) !important;
+  box-shadow: 0 0 0 3px rgba(79, 195, 247, 0.1);
+}
+
+/* ===== Marquee scroll (CSS instead of JS) ===== */
+@keyframes marquee-scroll {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
+.marquee-scroll {
+  animation: marquee-scroll 28s linear infinite;
+  will-change: transform;
+}
+
+/* ===== Mobile performance ===== */
+@media (max-width: 640px) {
+  .glass {
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+  }
+  .glass-strong {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+  }
+  .noise-overlay::before {
+    display: none;
+  }
+}
