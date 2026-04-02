@@ -130,7 +130,7 @@ const projects = [
     tags: ['React', 'Node.js', 'MongoDB'],
     accent: '#f59e0b',
     gradient: 'from-amber-500 to-yellow-400',
-    previewImage: '/Real_Estate_CRM.png',
+    previewImage: '/RealEstate-crm.png',
   }
 ]
 
