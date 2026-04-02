@@ -13,7 +13,6 @@ const Services = lazy(() => import('./components/Services'))
 const Projects = lazy(() => import('./components/Projects'))
 const TechStack = lazy(() => import('./components/TechStack'))
 const Testimonials = lazy(() => import('./components/Testimonials'))
-const Contact = lazy(() => import('./components/Contact'))
 const Footer = lazy(() => import('./components/Footer'))
 
 gsap.registerPlugin(ScrollTrigger)
@@ -54,7 +53,6 @@ function App() {
           <Projects />
           <TechStack />
           <Testimonials />
-          <Contact />
         </Suspense>
       </main>
       <Suspense fallback={null}>

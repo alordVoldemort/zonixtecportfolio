@@ -24,6 +24,7 @@ const services = [
     gradient: 'from-blue-400 to-cyan-400',
     tags: ['React', 'Next.js', 'Node.js', 'TypeScript'],
     preview: 'https://kaleshwarimandirannadanchhatra.org/',
+    previewImage: '/kaleshwari.png',
   },
   {
     icon: HiOutlineDeviceMobile,
@@ -57,17 +58,19 @@ const services = [
     gradient: 'from-amber-400 to-orange-400',
     tags: ['Dashboards', 'React', 'Angular', 'SQL'],
     preview: 'https://team.zonixtec.com/login',
+    previewImage: '/HRMS_Zonixtec.png',
   },
   {
     icon: HiOutlineLightningBolt,
     number: '05',
-    title: 'CRM ',
+    title: 'CRM',
     description:
-      'Customre Relationship Management',
+      'Customer Relationship Management - Streamline your sales, marketing, and customer service processes with our comprehensive CRM solution.',
     accent: '#f472b6',
     gradient: 'from-pink-400 to-rose-400',
     tags: ['React', 'Nodejs', 'SQL', 'Angular'],
     preview: 'https://business.zonixtec.com/',
+    previewImage: '/CRM_Bussiness.png', // Added CRM image
   },
   
 ]
@@ -551,7 +554,7 @@ export default function Services() {
                         </div>
                       </div>
 
-                      {/* Static preview placeholder (no iframe for performance) */}
+                      {/* Preview placeholder with conditional image rendering */}
                       <div
                         className="relative z-10 flex flex-col items-center justify-center"
                         style={{
@@ -560,10 +563,30 @@ export default function Services() {
                           background: 'linear-gradient(145deg, rgba(255,255,255,0.03) 0%, rgba(255,255,255,0.01) 100%)',
                         }}
                       >
-                        <div className="flex flex-col items-center gap-4 opacity-60">
-                          <HiOutlineGlobe className="w-12 h-12" style={{ color: svc.accent + '80' }} />
-                          <span className="font-mono text-xs text-gray-500 text-center px-4">{svc.preview}</span>
-                        </div>
+                        {(svc.number === '01' || svc.number === '04' || svc.number === '05') && svc.previewImage ? (
+                          /* Show image for Web Development (01), HRMS (04), and CRM (05) */
+                          <img 
+                            src={svc.previewImage}
+                            alt={
+                              svc.number === '01' ? "Kaleshwari Mandir Preview" :
+                              svc.number === '04' ? "HRMS Dashboard Preview" :
+                              "CRM Business Preview"
+                            }
+                            className="w-full h-full object-cover object-top"
+                            style={{ opacity: 0.9 }}
+                            onError={(e) => {
+                              console.error('Image failed to load:', svc.previewImage);
+                              e.target.style.display = 'none';
+                              e.target.parentElement.innerHTML = '<div class="flex flex-col items-center gap-4 opacity-60"><svg class="w-12 h-12" style="color: ' + svc.accent + '80" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg><span class="font-mono text-xs text-gray-500 text-center px-4">' + svc.preview + '</span></div>';
+                            }}
+                          />
+                        ) : (
+                          /* Default placeholder for other services */
+                          <div className="flex flex-col items-center gap-4 opacity-60">
+                            <HiOutlineGlobe className="w-12 h-12" style={{ color: svc.accent + '80' }} />
+                            <span className="font-mono text-xs text-gray-500 text-center px-4">{svc.preview}</span>
+                          </div>
+                        )}
                         <div className="absolute inset-0 pointer-events-none" style={{ background: `radial-gradient(ellipse at 50% 60%, ${svc.accent}08, transparent 70%)` }} />
                       </div>
 
@@ -610,12 +633,11 @@ export default function Services() {
 function MobileServices() {
   const [idx, setIdx]   = useState(0)
   const [dir, setDir]   = useState(1)
-  const wrapRef         = useRef(null)   // outer — gives GSAP scroll space
-  const panelRef        = useRef(null)   // inner 100vh — gets pinned
+  const wrapRef         = useRef(null)
+  const panelRef        = useRef(null)
   const touchStartX     = useRef(null)
   const lastProgress    = useRef(0)
 
-  /* ── GSAP scroll-pin (mirrors the desktop, but for ≤ 1023 px) ── */
   useEffect(() => {
     let ctx
     const timer = setTimeout(() => {
@@ -648,7 +670,6 @@ function MobileServices() {
     return () => { clearTimeout(timer); if (ctx) ctx.revert() }
   }, [])
 
-  /* ── Programmatic navigation (dots / swipe) scrolls the page ── */
   const navigate = useCallback((next) => {
     if (!wrapRef.current) { setIdx(next); return }
     setDir(next > idx ? 1 : -1)
@@ -675,10 +696,7 @@ function MobileServices() {
   }
 
   return (
-    /* wrapRef gives GSAP the scroll space (height = N × 100vh after pinSpacing) */
     <div ref={wrapRef} className="lg:hidden relative bg-navy-900">
-
-      {/* panelRef is the element that GSAP pins at top:0, height:100vh */}
       <div
         ref={panelRef}
         className="relative flex flex-col bg-navy-900"
@@ -686,7 +704,6 @@ function MobileServices() {
         onTouchStart={onTouchStart}
         onTouchEnd={onTouchEnd}
       >
-        {/* Ambient glow — colour follows active service */}
         <div
           className="pointer-events-none absolute inset-0 transition-all duration-700"
           style={{
@@ -696,7 +713,6 @@ function MobileServices() {
           }}
         />
 
-        {/* Top scroll-progress bar */}
         <div className="absolute top-0 left-0 right-0 h-[3px] z-30" style={{ background: 'rgba(255,255,255,0.05)' }}>
           <motion.div
             className="h-full rounded-r-full"
@@ -708,10 +724,7 @@ function MobileServices() {
 
         <div className="section-divider" />
 
-        {/* Inner layout */}
         <div className="relative flex-1 flex flex-col max-w-2xl mx-auto w-full px-4 sm:px-6 pt-4 sm:pt-6 pb-3 min-h-0">
-
-          {/* Section header — static */}
           <div className="flex-shrink-0 mb-4">
             <div className="flex items-center gap-3 mb-2">
               <span className="font-mono text-sm text-accent-blue">02</span>
@@ -729,7 +742,6 @@ function MobileServices() {
             </div>
           </div>
 
-          {/* Animated service panel */}
           <div className="flex-1 relative min-h-0 flex flex-col justify-center">
             <AnimatePresence custom={dir} mode="wait">
               <motion.div
@@ -743,7 +755,6 @@ function MobileServices() {
                 className="absolute inset-0 flex flex-col gap-3 sm:gap-5 justify-center overflow-y-auto"
                 style={{ scrollbarWidth: 'none', paddingTop: 4, paddingBottom: 4 }}
               >
-                {/* ── Preview card ── */}
                 <div
                   className="rounded-2xl overflow-hidden flex-shrink-0"
                   style={{
@@ -752,7 +763,6 @@ function MobileServices() {
                     boxShadow: '0 0 40px -8px ' + s.accent + '20',
                   }}
                 >
-                  {/* Browser chrome */}
                   <div
                     className="px-3.5 pt-2.5 pb-2"
                     style={{ background: 'rgba(255,255,255,0.055)', borderBottom: '1px solid rgba(255,255,255,0.07)' }}
@@ -784,7 +794,6 @@ function MobileServices() {
                     </div>
                   </div>
 
-                  {/* Preview placeholder (no iframe for performance) */}
                   {s.number === '02' ? (
                     <div className="flex items-center justify-center py-5" style={{ background: '#080b14', height: 170 }}>
                       <div
@@ -802,15 +811,34 @@ function MobileServices() {
                     </div>
                   ) : (
                     <div className="relative flex flex-col items-center justify-center" style={{ height: 170, overflow: 'hidden', background: 'rgba(255,255,255,0.015)' }}>
-                      <HiOutlineGlobe className="w-8 h-8 mb-2 opacity-30" style={{ color: s.accent }} />
-                      <span className="font-mono text-[9px] text-gray-600 text-center px-3 break-all leading-tight">{s.preview}</span>
+                      {(s.number === '01' || s.number === '04' || s.number === '05') && s.previewImage ? (
+                        <img 
+                          src={s.previewImage}
+                          alt={
+                            s.number === '01' ? "Kaleshwari Mandir Preview" :
+                            s.number === '04' ? "HRMS Dashboard Preview" :
+                            "CRM Business Preview"
+                          }
+                          className="w-full h-full object-cover object-top"
+                          style={{ opacity: 0.9 }}
+                          onError={(e) => {
+                            console.error('Mobile image failed to load:', s.previewImage);
+                            e.target.style.display = 'none';
+                            e.target.parentElement.innerHTML = '<div class="flex flex-col items-center gap-4 opacity-60"><svg class="w-8 h-8 mb-2 opacity-30" style="color: ' + s.accent + '" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" /></svg><span class="font-mono text-[9px] text-gray-600 text-center px-3 break-all leading-tight">' + s.preview + '</span></div>';
+                          }}
+                        />
+                      ) : (
+                        <>
+                          <HiOutlineGlobe className="w-8 h-8 mb-2 opacity-30" style={{ color: s.accent }} />
+                          <span className="font-mono text-[9px] text-gray-600 text-center px-3 break-all leading-tight">{s.preview}</span>
+                        </>
+                      )}
                       <div className="absolute bottom-0 left-0 right-0 h-8 pointer-events-none z-10"
                         style={{ background: 'linear-gradient(to bottom, transparent, rgba(8,11,20,0.92))' }} />
                     </div>
                   )}
                 </div>
 
-                {/* ── Service info ── */}
                 <div className="flex-shrink-0">
                   <div className="flex items-center gap-3 mb-2">
                     <div className={'w-10 h-10 rounded-xl flex items-center justify-center bg-gradient-to-br ' + s.gradient + ' flex-shrink-0'}>
@@ -839,7 +867,6 @@ function MobileServices() {
             </AnimatePresence>
           </div>
 
-          {/* ── Bottom nav: counter + dots ── */}
           <div className="flex-shrink-0 pt-3 pb-1 flex items-center justify-between">
             <span className="font-mono text-xs text-gray-600">
               {String(idx + 1).padStart(2, '0')}&nbsp;/&nbsp;{String(N).padStart(2, '0')}

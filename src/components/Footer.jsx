@@ -1,10 +1,6 @@
 import { motion } from 'framer-motion'
 
-const footerLinks = {
-  Company: ['About', 'Careers', 'Blog', 'Press'],
-  Services: ['Web Development', 'Mobile Apps', 'UI/UX Design', 'Cloud Solutions'],
-  Connect: ['Twitter', 'LinkedIn', 'GitHub', 'Dribbble'],
-}
+
 
 export default function Footer() {
   return (
@@ -24,12 +20,9 @@ export default function Footer() {
                 alt="Zonixtec"
                 className="h-10 w-auto object-contain drop-shadow-[0_0_12px_rgba(79,195,247,0.25)]"
                 draggable={false}
+                
               />
             </motion.div>
-            <p className="text-gray-500 text-sm leading-relaxed mb-6">
-              Crafting premium digital experiences that push boundaries and
-              redefine what's possible.
-            </p>
             {/* Social icons */}
             <div className="flex gap-3">
               {/* Instagram */}
@@ -77,26 +70,7 @@ export default function Footer() {
             </div>
           </div>
 
-          {/* Links */}
-          {Object.entries(footerLinks).map(([category, links]) => (
-            <div key={category}>
-              <h4 className="text-sm font-semibold text-white tracking-wider uppercase mb-4">
-                {category}
-              </h4>
-              <ul className="space-y-3">
-                {links.map((link) => (
-                  <li key={link}>
-                    <a
-                      href="#"
-                      className="text-sm text-gray-500 hover:text-accent-blue transition-colors duration-300"
-                    >
-                      {link}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          ))}
+          
         </div>
 
         {/* Bottom */}

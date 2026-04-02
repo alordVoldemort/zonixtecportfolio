@@ -10,6 +10,7 @@ const projects = [
     tags: ['React', 'Node.js'],
     accent: '#4FC3F7',
     gradient: 'from-blue-500 to-cyan-400',
+    previewImage: '/kaleshwari.png', 
   },
   {
     title: 'Nirmal Health Care',
@@ -19,6 +20,7 @@ const projects = [
     tags: ['React', 'PHP'],
     accent: '#34d399',
     gradient: 'from-emerald-500 to-teal-400',
+    previewImage: '/Nirmal-Health-Care.png',
   },
   {
     title: 'Morya Cars',
@@ -28,6 +30,7 @@ const projects = [
     tags: ['Reactjs', 'Php', 'SQL'],
     accent: '#a78bfa',
     gradient: 'from-purple-500 to-pink-500',
+    previewImage: '/Morya_Cars.png', 
   },
   {
     title: 'EasyEAuction',
@@ -37,6 +40,7 @@ const projects = [
     tags: ['Vue.js', 'D3.js', 'Python'],
     accent: '#6ee7b7',
     gradient: 'from-green-500 to-emerald-400',
+    previewImage: '/Easyeauction.png', 
   },
   {
     title: 'HRMS Platform',
@@ -46,6 +50,7 @@ const projects = [
     tags: ['Reactjs', 'Nodejs', 'SQL'],
     accent: '#fbbf24',
     gradient: 'from-amber-400 to-orange-500',
+    previewImage: '/HRMS_Zonixtec.png', 
   },
   {
     title: 'CRM Platform',
@@ -55,15 +60,55 @@ const projects = [
     tags: ['Next.js', 'OpenAI', 'PostgreSQL'],
     accent: '#f472b6',
     gradient: 'from-rose-500 to-red-400',
+    previewImage: '/CRM_Bussiness.png',
   },
+  {
+    title: 'Kalakruti Studio',
+    url: 'https://interior-design-website-umber.vercel.app/',
+    category: 'Interior Design',
+    description: 'A visually stunning website for an interior design studio, showcasing their portfolio and services with a modern aesthetic.',
+    tags: ['React', 'Tailwind CSS'],
+    accent: '#f43f5e',
+    gradient: 'from-pink-500 to-red-500',
+    previewImage: '/Kalakruti_Studio.png',
+  },
+  {
+    title: 'Billing Software',
+    url: 'https://billing-software-self.vercel.app/dashboard',
+    category: 'Billing Software',
+    description: 'A modern and efficient billing software that simplifies invoice generation, payment tracking, and sales management with a user-friendly interface and real-time insights.',
+    tags: ['React', 'Tailwind CSS'],
+    accent: '#72f43f',
+    gradient: 'from-green-500 to-emerald-400',
+    previewImage: '/billing.png',
+  },
+  {
+    title: 'Real Estate website',
+    url: 'https://real-estate-three-ruby.vercel.app/',
+    category: 'Real Estate',
+    description: 'A modern real estate website for showcasing properties, facilitating listings, and providing a seamless user experience.',
+    tags: ['React', 'Tailwind CSS'],
+    accent: '#f59e0b',
+    gradient: 'from-amber-500 to-yellow-400',
+    previewImage: '/Real_Estate_Website.png',
+  },
+  {
+    title: 'Swami Cabs',
+    url: '',
+    category: 'Car Booking Application',
+    description: 'A modern mobile application for booking car rentals with a user-friendly interface and real-time availability updates.',
+    tags: ['React Native', 'Node.js', 'MongoDB'],
+    accent: '#f59e0b',
+    gradient: 'from-amber-500 to-yellow-400',
+    previewImage: '/car.png',
+  }
 ]
 
-// Wireframe mock-preview for projects without a live URL
+
 function MockPreview({ project }) {
   return (
     <div className="w-full h-full relative overflow-hidden" style={{ background: '#0d1526' }}>
       <div className={`absolute inset-0 bg-gradient-to-br ${project.gradient} opacity-[0.14] pointer-events-none`} />
-      {/* Mock nav */}
       <div
         className="flex items-center gap-2 px-3 py-1.5"
         style={{ background: 'rgba(0,0,0,0.35)', borderBottom: '1px solid rgba(255,255,255,0.05)' }}
@@ -75,7 +120,7 @@ function MockPreview({ project }) {
           ))}
         </div>
       </div>
-      {/* Mock hero */}
+      
       <div className="px-3 pt-3 pb-1">
         <div className="h-2.5 w-3/4 rounded-full mb-1.5" style={{ background: project.accent + '60' }} />
         <div className="h-1.5 w-1/2 rounded-full mb-2.5" style={{ background: 'rgba(255,255,255,0.13)' }} />
@@ -84,7 +129,7 @@ function MockPreview({ project }) {
           <div className="h-4 w-10 rounded" style={{ background: 'rgba(255,255,255,0.07)' }} />
         </div>
       </div>
-      {/* Mock cards grid */}
+     
       <div className="px-3 pt-2.5 grid grid-cols-3 gap-1.5">
         {[60, 45, 70].map((pct, i) => (
           <div
@@ -97,7 +142,7 @@ function MockPreview({ project }) {
           </div>
         ))}
       </div>
-      {/* Bottom fade-out */}
+      
       <div
         className="absolute bottom-0 left-0 right-0 h-10 pointer-events-none"
         style={{ background: 'linear-gradient(to bottom, transparent, #0d1526)' }}
@@ -192,7 +237,32 @@ function ProjectCard({ project, index, visible }) {
         className="relative z-10 flex-shrink-0"
         style={{ height: 200, overflow: 'hidden' }}
       >
-        {hasUrl ? (
+        {project.previewImage ? (
+          /* Show project image if available */
+          <div className="absolute inset-0 w-full h-full">
+            <img 
+              src={project.previewImage}
+              alt={`${project.title} preview`}
+              className="w-full h-full object-cover object-top"
+              style={{ opacity: 0.85 }}
+              onError={(e) => {
+                console.error('Image failed to load:', project.previewImage);
+                e.target.style.display = 'none';
+                // Show fallback content
+                const fallbackDiv = document.createElement('div');
+                fallbackDiv.className = 'absolute inset-0 flex flex-col items-center justify-center';
+                fallbackDiv.style.background = 'linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01))';
+                fallbackDiv.innerHTML = `
+                  <svg class="w-10 h-10 mb-2 opacity-30" style="color: ${project.accent}" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                    <circle cx="12" cy="12" r="10" /><path d="M2 12h20M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10A15.3 15.3 0 0 1 12 2z"/>
+                  </svg>
+                  <span class="font-mono text-[10px] text-gray-500 text-center px-4 break-all leading-tight">${project.url}</span>
+                `;
+                e.target.parentElement.appendChild(fallbackDiv);
+              }}
+            />
+          </div>
+        ) : hasUrl ? (
           <div className="absolute inset-0 flex flex-col items-center justify-center"
             style={{ background: 'linear-gradient(145deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01))' }}>
             <svg className="w-10 h-10 mb-2 opacity-30" style={{ color: project.accent }} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
