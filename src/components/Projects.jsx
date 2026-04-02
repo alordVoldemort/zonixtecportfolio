@@ -101,6 +101,36 @@ const projects = [
     accent: '#f59e0b',
     gradient: 'from-amber-500 to-yellow-400',
     previewImage: '/car.png',
+  },
+  {
+    title: 'Civil ERP',
+    url: '',
+    category: 'ERP Software',
+    description: 'A comprehensive ERP solution for managing business processes, including finance, HR, and operations, with real-time insights and analytics.',
+    tags: ['React', 'Node.js', 'MongoDB'],
+    accent: '#f59e0b',
+    gradient: 'from-amber-500 to-yellow-400',
+    previewImage: '/Civil_ERP.png',
+  },
+  {
+    title: 'Food Hotel',
+    url: '',
+    category: 'Website for Food Hotel',
+    description: 'A modern and visually appealing website for a food hotel, showcasing their menu, services, and providing an easy reservation system.',
+    tags: ['React', 'Node.js', 'MongoDB'],
+    accent: '#f59e0b',
+    gradient: 'from-amber-500 to-yellow-400',
+    previewImage: '/Food Hotel.png',
+  },
+  {
+    title: 'Real Estate CRM',
+    url: '',
+    category: 'Real Estate CRM',
+    description: 'A CRM platform tailored for real estate professionals, offering lead management, property tracking, and client communication tools to streamline business operations.',
+    tags: ['React', 'Node.js', 'MongoDB'],
+    accent: '#f59e0b',
+    gradient: 'from-amber-500 to-yellow-400',
+    previewImage: '/Real_Estate_CRM.png',
   }
 ]
 
@@ -366,6 +396,7 @@ export default function Projects() {
   // phase: 'idle' | 'playing' | 'cards'
   const [phase, setPhase] = useState('idle')
   const [progress, setProgress] = useState(0)
+  const [visibleCount, setVisibleCount] = useState(6)
   const started = useRef(false)
 
   // Trigger video when section enters viewport
@@ -608,23 +639,41 @@ export default function Projects() {
 
               {/* Grid */}
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5">
-                {projects.map((project, i) => (
+                {projects.slice(0, visibleCount).map((project, i) => (
                   <ProjectCard
                     key={project.title}
                     project={project}
-                    index={i}
+                    index={projects.indexOf(project)}
                     visible={cardsVisible}
                   />
                 ))}
               </div>
 
-              {/* CTA */}
+              {/* See More / CTA */}
               <motion.div
-                className="flex justify-center mt-10"
+                className="flex flex-col items-center gap-4 mt-10"
                 initial={{ opacity: 0, y: 16 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.5, delay: 0.75 }}
               >
+                {visibleCount < projects.length && (
+                  <button
+                    onClick={() => setVisibleCount(c => Math.min(c + 3, projects.length))}
+                    className="flex items-center gap-2.5 px-7 py-3 rounded-full text-sm font-medium text-white transition-all duration-300 hover:-translate-y-0.5 active:scale-95"
+                    style={{
+                      background: 'rgba(79,195,247,0.10)',
+                      border: '1px solid rgba(79,195,247,0.30)',
+                    }}
+                  >
+                    See More
+                    <svg width="13" height="13" viewBox="0 0 13 13" fill="none">
+                      <path d="M6.5 1v11M1 7l5.5 5.5L12 7" stroke="#4FC3F7" strokeWidth="1.6" strokeLinecap="round" strokeLinejoin="round" />
+                    </svg>
+                    <span className="text-[10px] font-mono text-accent-blue/60 ml-0.5">
+                      {Math.min(3, projects.length - visibleCount)} more
+                    </span>
+                  </button>
+                )}
                 <a
                   href="#contact"
                   className="flex items-center gap-3 px-6 py-3 rounded-full text-sm font-medium text-white transition-all duration-300 hover:-translate-y-0.5"
