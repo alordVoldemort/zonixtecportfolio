@@ -8,9 +8,9 @@ export default function Footer() {
       <div className="section-divider mb-8 sm:mb-12 md:mb-16" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6">
-        <div className="grid grid-cols-2 md:grid-cols-2 lg:grid-cols-4 gap-8 sm:gap-10 md:gap-12 mb-10 sm:mb-16">
+        <div className="flex flex-col items-center mb-10 sm:mb-16">
           {/* Brand */}
-          <div className="col-span-2 md:col-span-2 lg:col-span-1">
+          <div className="flex flex-col items-center">
             <motion.div
               className="mb-4"
               whileHover={{ scale: 1.03 }}
@@ -20,11 +20,10 @@ export default function Footer() {
                 alt="Zonixtec"
                 className="h-10 w-auto object-contain drop-shadow-[0_0_12px_rgba(79,195,247,0.25)]"
                 draggable={false}
-                
               />
             </motion.div>
             {/* Social icons */}
-            <div className="flex gap-3">
+            <div className="flex gap-3 justify-center">
               {/* Instagram */}
               <motion.a
                 href="https://www.instagram.com/zonixtec_it_services"
@@ -69,8 +68,6 @@ export default function Footer() {
               </motion.a>
             </div>
           </div>
-
-          
         </div>
 
         {/* Bottom */}
