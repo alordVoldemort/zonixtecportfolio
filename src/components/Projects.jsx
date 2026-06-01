@@ -112,6 +112,16 @@ const projects = [
     gradient: 'from-amber-500 to-yellow-400',
     previewImage: '/Civil_ERP.png',
   },
+   {
+    title: 'Cobbler CRM',
+    url: '',
+    category: 'CRM Software',
+    description: 'A CRM platform tailored for cobblers, offering customer management, appointment scheduling, and inventory tracking to streamline business operations.',
+    tags: ['React', 'Node.js', 'MongoDB'],
+    accent: '#f59e0b',
+    gradient: 'from-amber-500 to-yellow-400',
+    previewImage: '/CobblerSystem.png',
+  },
   {
     title: 'Food Hotel',
     url: '',
